@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Car Leasing Calculator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!--Javascript logic: this method calculates interest rate, down payment, monthly installment and total leasing cost-->
+	<script type="text/javascript">
+		function MakeCalculations() {
+			let interestRate = 0.00;
+			if(document.getElementById("car_type").value == "Brand New")
+			{
+				interestRate = 2.99;
+			}
+			else interestRate = 3.7;
+			document.getElementById("interest_rate").innerHTML = "Interest Rate: " + interestRate + "%";
+
+			let downPayment = document.getElementById("car_value").value * document.getElementById("down_payment_percent").value / 100;
+			document.getElementById("monthly_installment").innerHTML = "Down payment: €" + downPayment.toFixed(2);
+
+			let monthlyInstallment = document.getElementById("car_value").value * (100 - interestRate) / 100 / document.getElementById("months").value;
+			document.getElementById("down_payment").innerHTML = "Monthly Installment: €" + monthlyInstallment;
+
+			let totalLeasingCost = monthlyInstallment * document.getElementById("months").value + downPayment;
+			document.getElementById("leasing_cost").innerHTML = "Total Leasing Cost: €" + totalLeasingCost;
+
+			document.getElementById("car_value_textbox").value = document.getElementById("car_value").value;
+			document.getElementById("down_payment_textbox").value = document.getElementById("down_payment_percent").value;
+		}
+	</script>
+</head>
+<body>
+	<p style="text-align: center; font-size: 50px;"><b>Car Leasing Calculator</b></p>
+	<div class="all">
+		<div class="left"> <!--Everything located on the left side of the screen above the horizontal breakup line-->
+			<p>Car Type:</p>
+			<select id="car_type" onchange="MakeCalculations()">
+				<option value="Brand New">Brand New</option>
+				<option value="Used">Used</option>
+			</select>
+			<p>Car Value (€10,000 - €200,000):</p>
+			<input readonly="readonly" id="car_value_textbox"> <!--Is used only to show the number of the car value-->
+			<input onchange="MakeCalculations()" id="car_value" type="range" min="10000" max="200000" name="">
+		</div>
+		<div class="right"> <!--Everything located on the right side of the screen above the horizontal breakup line-->
+			<p>Lease Period (months):</p>
+			<select id="months" onchange="MakeCalculations()">
+				<option value="12">12</option>
+				<option value="24">24</option>
+				<option value="36">36</option>
+				<option value="48">48</option>
+				<option value="60">60</option>
+			</select>
+			<p>Down Payment (10% - 50%):</p>
+			<input readonly="readonly" id="down_payment_textbox"> <!--Is used only to show the percentage of the car payment-->
+			<input onchange="MakeCalculations()" id="down_payment_percent" type="range" min="10" max="50" step="5" name="">
+		</div>
+	</div>
+
+	<!--Horizontal breakup line-->
+	<br><hr>
+
+	<p style="text-align: center; font-size: 40px;"><b>Leasing Details</b></p>
+	<div class="all">
+		<div class="left"> <!--On the left side of the screen-->
+			<p id="leasing_cost">Total Leasing Cost: </p>
+			<p id="monthly_installment">Monthly Installment: </p>
+		</div>
+
+		<!--Vertical breakup line-->
+		<div class="vertical_line"></div>
+
+		<div class="right"> <!--On the right side of the screen-->
+			<p id="down_payment">Down Payment: </p>
+			<p id="interest_rate">Interest Rate: 2.99%</p>
+		</div>
+	</div>
+</body>
+</html>

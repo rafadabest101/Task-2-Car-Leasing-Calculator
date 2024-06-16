@@ -1,0 +1,37 @@
+body {
+	font-family: arial;
+}
+
+select, input {
+	height: 40px;
+	width: 90%;
+}
+
+/* Makes input fields cover the whole length of the screen when using a mobile */
+@media(max-width: 1200px)
+{
+	.left, .right {
+		width: 100%;
+	}
+
+	.vertical_line {
+		visibility: hidden;
+	}
+}
+
+/* Makes input fields cover only half of the length of the screen when using a desktop */
+@media(min-width: 1200px)
+{
+	.all {
+		display: flex;
+	}
+
+	.left, .right {
+		width: 50%;
+	}
+
+	.vertical_line {
+		border-left: 3px solid black ;
+		margin: 0 25px;
+	}
+}
